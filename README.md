@@ -1,7 +1,12 @@
 # vim_setting
 This is the setting of my vim.
 With this setting, your vim will have the following features:
-- Shift will become **4** space
+1. Use cursor line to show the line we foucs on.
+2. Show a bright number line on current line.
+3. Can store 100 command of vim.
+4. Show tab with special symbol.
+5. Auto-complete some symbol like : (),"",<},[],<>]>"").
+6. Tab will become **4** space.
 
 ---
 
