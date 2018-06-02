@@ -9,7 +9,6 @@ inoremap " ""<Esc>i
 inoremap ' ''<Esc>i
 inoremap [ []<Esc>i
 inoremap { {}<Esc>i
-inoremap { <><Esc>i
 set listchars=tab:»·
 set list
 
