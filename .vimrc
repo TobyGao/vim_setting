@@ -1,8 +1,12 @@
+set t_Co=256                                                                    
+colorscheme torte
 set expandtab
 set tabstop=4
 set shiftwidth=4
 set cursorline
 hi CursorLine cterm=none ctermbg=DarkMagenta ctermfg=White
+"set cursorcolumn
+"hi CursorColumn cterm=none ctermbg=DarkMagenta ctermfg=White
 set nu
 inoremap ( ()<Esc>i
 inoremap " ""<Esc>i
