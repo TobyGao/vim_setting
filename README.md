@@ -7,12 +7,17 @@ With this setting, your vim will have the following features:
 4. Show tab with special symbol.
 5. Auto-complete some symbol like : (),"",<},[],<>]>"").
 6. Tab will become **4** space.
+7. Install some vim plugin with bundle.
+
+---
+# Installed vim plugin:
+1. NERDTree(you can use ctrl-f to enable it.) 
 
 ---
 
 # INSTALL
-./install.sh
-
+1. ./install.sh
+2. open vim ,execute *:PluginInstall* ,and wait for a while.
 ---
 
 # the useful vim command
