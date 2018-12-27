@@ -15,7 +15,7 @@ inoremap ' ''<Esc>i
 inoremap [ []<Esc>i
 inoremap { {}<Esc>i
 set listchars=tab:»·
-set list
+"set list
 
 
 hi LineNr cterm=bold ctermfg=DarkGrey ctermbg=NONE
