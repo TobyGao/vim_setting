@@ -11,13 +11,16 @@ With this setting, your vim will have the following features:
 
 ---
 # Installed vim plugin:
-1. NERDTree(you can use ctrl-f to enable it.) 
+1. NERDTree(you can use ctrl-f to enable it.)
+1. YouCompleteMe
 
 ---
 
 # INSTALL
 1. ./install.sh
 2. open vim ,execute *:PluginInstall* ,and wait for a while.
+3. cd ~/.vim/bundle/YouCompleteMe
+4. ./install.sh --clang-completer
 ---
 
 # the useful vim command
@@ -30,5 +33,8 @@ With this setting, your vim will have the following features:
 p : paste the text where the cursor is
 
 ---
+
+# reference
+https://blog.csdn.net/Vintage_1/article/details/21557277
 
  
