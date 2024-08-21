@@ -8,6 +8,9 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'gmarik/vundle'
 Bundle 'majutsushi/tagbar'
+Bundle 'yggdroot/leaderf'
+Bundle 'pseewald/vim-anyfold'
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -55,15 +58,22 @@ elseif $CSCOPE_DB != ""
 endif
 set cscopeverbose
 
-nmap zs :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap zg :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap zc :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap zt :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap ze :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap zf :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap zi :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap zd :cs find d <C-R>=expand("<cword>")<CR><CR>
+nmap as :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap ag :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap ac :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap at :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap ae :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap af :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap ai :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap ad :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 " Tagbar
 let g:tagbar_width=50
 autocmd BufReadPost *.cpp,*.c,*.h,*.cc,*.cxx,*.py call tagbar#autoopen()
+
+set foldmethod=manual
+
+filetype plugin indent on " required
+syntax on                 " required
+autocmd Filetype * AnyFoldActivate               " activate for all filetypes
+set foldlevel=0  " close all folds
