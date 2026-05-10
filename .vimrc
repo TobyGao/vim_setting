@@ -1,79 +1,83 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible              " Disable compatibility mode with vi
+filetype off                  " Must be disabled first
 
+" --- Vundle Plugin Manager ---
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Bundle 'scrooloose/nerdtree'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'gmarik/vundle'
-Bundle 'majutsushi/tagbar'
-Bundle 'yggdroot/leaderf'
-Bundle 'pseewald/vim-anyfold'
+Plugin 'gmarik/vundle'              " Vundle manages itself
+Plugin 'scrooloose/nerdtree'        " File explorer
+Plugin 'Valloric/YouCompleteMe'     " Auto-completion (requires compilation and installation)
+Plugin 'majutsushi/tagbar'          " Function/Class outline viewer
+" Recommended Python indentation plugin
+Plugin 'Vimjas/vim-python-pep8-indent'
 
+call vundle#end()
+filetype plugin indent on           " Must be enabled
 
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-:map <C-f> :NERDTree<CR>
-
+" --- Basic Display Settings ---
 set t_Co=256
-"colorscheme skyhawk
 colorscheme torte
-set expandtab
 syntax on
-set tabstop=4
-set shiftwidth=4
-set cursorline
-hi CursorLine cterm=none ctermbg=DarkMagenta ctermfg=White
+set nu                              " Show line numbers
+set cursorline                      " Highlight current line
+hi CursorLine cterm=none ctermbg=236 ctermfg=none " Slightly darker gray without affecting readability
 set colorcolumn=81
 highlight ColorColumn ctermbg=6
-""set cursorcolumn
-""hi CursorColumn cterm=none ctermbg=DarkMagenta ctermfg=White
-set nu
-inoremap ( ()<Esc>i
-inoremap " ""<Esc>i
-inoremap ' ''<Esc>i
-inoremap [ []<Esc>i
-inoremap { {}<Esc>i
-"set listchars=tab:»·
-"set list
 
+" Indentation settings
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set smartindent
 
-hi LineNr cterm=bold ctermfg=DarkGrey ctermbg=NONE
-hi CursorLineNr cterm=bold ctermfg=Green ctermbg=NONE
-set history=100
-"retab
-"
-let NERDTreeNodeDelimiter = "\t" "if Missing first character in tree structure
-set backspace=indent,eol,start
-set tags=./tags,./TAGS,tags;~,TAGS;~
+" --- Key Mappings ---
+" NERDTree
+map <C-f> :NERDTreeToggle<CR>
+let NERDTreeNodeDelimiter = "\t"
+
+" Tagbar (auto-open for Python files)
+let g:tagbar_width=30
+nmap <F8> :TagbarToggle<CR>
+autocmd BufReadPost *.py,*.c,*.cpp call tagbar#autoopen()
+
+" Auto-complete brackets/quotes (fix cursor position after escape)
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap { {}<Left>
+inoremap ' ''<Left>
+inoremap " ""<Left>
+
+" --- Advanced Ctags & Cscope Settings ---
+" tags search order: current directory -> search upward until root
+set tags=./tags;,tags;
 set cscopetag
-set csto=0
+set csto=0 " Search cscope first, then tags
 
-if filereadable("cscope.out")
-   cs add cscope.out
-elseif $CSCOPE_DB != ""
-    cs add $CSCOPE_DB
+if has("cscope")
+    set nocscopeverbose
+    " Avoid duplicate loading errors
+    if filereadable("cscope.out")
+        silent! cs kill -1
+        cs add cscope.out
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+    set cscopeverbose
 endif
-set cscopeverbose
 
-nmap as :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap ag :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap ac :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap at :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap ae :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap af :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap ai :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap ad :cs find d <C-R>=expand("<cword>")<CR><CR>
+" Cscope key mappings (keep your z-series shortcuts)
+nmap zs :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap zg :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap zc :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap zt :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap ze :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap zf :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap zi :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap zd :cs find d <C-R>=expand("<cword>")<CR><CR>
 
-" Tagbar
-let g:tagbar_width=50
-autocmd BufReadPost *.cpp,*.c,*.h,*.cc,*.cxx,*.py call tagbar#autoopen()
-
-set foldmethod=manual
-
-filetype plugin indent on " required
-syntax on                 " required
-autocmd Filetype * AnyFoldActivate               " activate for all filetypes
-set foldlevel=0  " close all folds
+" --- Other Optimizations ---
+set backspace=indent,eol,start
+set history=100
+set completeopt-=preview " Disable the ugly preview window on top from YouCompleteMe
